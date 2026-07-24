@@ -3,582 +3,360 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Izzy's Portfolio</title>
-    <style>
-        :root {
-            --bg-dark: #0b0c10;
-            --card-bg: rgba(22, 24, 30, 0.7); 
-            --card-border: #1f222e;
-            --text-main: #f5f6fa;
-            --text-muted: #949ba4;
-            --accent: #5865F2; 
-            --accent-hover: #717fff;
-            --success: #23a55a;
-            --idle: #f0b232;
-            --dnd: #f23f43;
-            --offline: #80848e;
-        }
 
+    <title>Izzy's Portfolio</title>
+
+    <style>
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
-            background: radial-gradient(circle at top, #141622 0%, var(--bg-dark) 100%);
-            color: var(--text-main);
-            line-height: 1.6;
-            padding: 0 20px;
-            overflow-x: hidden;
+            background: #101010;
+            color: #ffffff;
+            font-family: Arial, sans-serif;
         }
 
-        header {
-            text-align: center;
-            padding: 80px 0 30px;
+        /* hero */
+
+        .hero {
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
-            align-items: center;
-        }
-
-        .profile-container {
-            position: relative;
-            margin-bottom: 24px;
-        }
-
-        #discord-avatar {
-            width: 110px;
-            height: 110px;
-            border-radius: 50%;
-            border: 2px solid var(--card-border);
-            background: #1e1f22;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
-            transition: transform 0.3s ease;
-        }
-
-        .profile-container:hover #discord-avatar {
-            transform: scale(1.03);
-            border-color: var(--accent);
-        }
-
-        .status-dot {
-            position: absolute;
-            bottom: 4px;
-            right: 4px;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            border: 4px solid var(--bg-dark);
-            background-color: var(--offline);
-            transition: background-color 0.3s ease;
-        }
-
-        .typewriter-container {
-            display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 50px;
+            text-align: center;
+            padding: 20px;
         }
 
-        #typewriter {
-            font-size: 2.5rem;
-            color: var(--text-main);
-            border-right: 3px solid var(--accent);
-            padding-right: 5px;
-            font-weight: 800;
-            letter-spacing: -0.5px;
-            animation: blink 0.75s step-end infinite;
-        }
-
-        @keyframes blink {
-            from, to { border-color: transparent; }
-            50% { border-color: var(--accent); }
-        }
-
-        .subtitle {
-            color: var(--text-muted);
-            font-size: 1.1rem;
-            margin-top: 8px;
-            font-weight: 400;
-        }
-
-        #custom-status {
-            font-size: 0.85rem;
-            color: var(--text-main);
-            background: rgba(88, 101, 242, 0.1);
-            margin-top: 15px;
-            border: 1px solid rgba(88, 101, 242, 0.2);
-            border-radius: 20px;
-            padding: 6px 16px;
-            display: none; 
-        }
-
-        
-        #spotify-box {
-            display: none;
-            align-items: center;
-            background: rgba(30, 215, 96, 0.08);
-            border: 1px solid rgba(30, 215, 96, 0.2);
-            padding: 12px 20px;
-            border-radius: 30px;
-            margin-top: 20px;
-            max-width: 380px;
-            width: 100%;
-            text-align: left;
-            gap: 12px;
-            animation: fadeIn 0.4s ease-out;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(4px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        #spotify-album-art {
-            width: 42px;
-            height: 42px;
+        .profile-image {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
             border-radius: 50%;
-            animation: spin 12s linear infinite;
+            border: 2px solid #2d2d2d;
+            margin-bottom: 25px;
         }
 
-        @keyframes spin {
-            100% { transform: rotate(360deg); }
+        .hero h1 {
+            font-size: 52px;
+            margin-bottom: 12px;
         }
 
-        .spotify-details {
-            overflow: hidden;
-            flex-grow: 1;
+        .hero p {
+            color: #999999;
+            font-size: 17px;
         }
 
-        .spotify-title {
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: #fff;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
+        .scroll {
+            margin-top: 40px;
+            color: #666666;
+            font-size: 14px;
         }
 
-        .spotify-artist {
-            font-size: 0.75rem;
-            color: #1ed760;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
+        /* main */
+
+        .container {
+            width: 90%;
+            max-width: 1000px;
+            margin: auto;
+            padding: 80px 0;
         }
 
         section {
-            max-width: 850px;
-            margin: 0 auto 35px;
-            background: var(--card-bg);
-            padding: 35px;
-            border-radius: 16px;
-            border: 1px solid var(--card-border);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-            transition: border-color 0.3s ease;
-        }
-
-        section:hover {
-            border-color: rgba(88, 101, 242, 0.25);
+            margin-bottom: 110px;
         }
 
         h2 {
-            font-size: 1.3rem;
+            font-size: 28px;
             margin-bottom: 25px;
-            color: var(--accent);
-            font-weight: 600; 
-            letter-spacing: 0.5px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
         }
 
-        h2::before {
-            content: "//";
-            color: var(--text-muted);
-            font-weight: 400;
-        }
+        /* social buttons */
 
-        .tech-icons {
+        .buttons {
             display: flex;
-            gap: 12px;
-            margin-top: 25px;
             flex-wrap: wrap;
+            gap: 12px;
         }
 
-        .tech-card {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            background: rgba(255, 255, 255, 0.02);
-            padding: 8px 16px;
-            border-radius: 8px;
-            border: 1px solid var(--card-border);
-            font-size: 0.9rem;
-            transition: all 0.2s ease;
+        button,
+        .button {
+            background: #191919;
+            color: #ffffff;
+            border: 1px solid #303030;
+            padding: 13px 18px;
+            border-radius: 6px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 14px;
+            transition: 0.2s;
         }
 
-        .tech-card:hover {
-            background: rgba(88, 101, 242, 0.05);
-            border-color: var(--accent);
+        button:hover,
+        .button:hover {
+            background: #252525;
         }
 
-        .tech-card img {
-            width: 20px;
-            height: 20px;
-            object-fit: contain;
-        }
+        /* games */
 
-        .grid {
+        .games {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 18px;
         }
 
-        .card {
-            background: rgba(0, 0, 0, 0.15);
-            padding: 24px;
-            border-radius: 12px;
-            border: 1px solid var(--card-border);
-            transition: all 0.25s ease;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-        
-        .card:hover {
-            border-color: var(--accent);
-            background: rgba(88, 101, 242, 0.02);
-            transform: translateY(-2px);
+        .game {
+            background: #181818;
+            border: 1px solid #2b2b2b;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: 0.2s;
         }
 
-        .card h3 {
-            font-size: 1.15rem;
-            margin-bottom: 10px;
-            color: var(--text-main);
+        .game:hover {
+            transform: translateY(-4px);
+            border-color: #444444;
         }
 
-        .card p {
-            color: var(--text-muted);
-            font-size: 0.9rem;
+        .game img {
+            width: 100%;
+            height: 170px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .game-content {
+            padding: 20px;
+        }
+
+        .game h3 {
+            font-size: 18px;
             margin-bottom: 8px;
         }
 
-        .card a {
-            display: inline-flex;
-            align-items: center;
-            margin-top: 15px;
-            color: var(--accent);
-            text-decoration: none;
-            font-size: 0.85rem;
-            font-weight: bold;
-            transition: color 0.2s;
+        .game p {
+            color: #999999;
+            font-size: 14px;
         }
 
-        .card a:hover {
-            color: var(--accent-hover);
+        /* stack */
+
+        .stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
-        .status {
-            font-size: 0.75rem;
-            padding: 3px 8px;
-            border-radius: 4px;
-            font-weight: bold;
-            display: inline-block;
-            margin-top: 6px;
-            width: max-content;
-            border: 1px solid;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+        .skill {
+            background: #181818;
+            border: 1px solid #2b2b2b;
+            padding: 12px 16px;
+            border-radius: 6px;
+            color: #cccccc;
         }
-        .active { background: rgba(35, 165, 90, 0.08); color: #2ecc71; border-color: rgba(46, 204, 113, 0.3); }
-        .inactive { background: rgba(242, 63, 67, 0.08); color: #e74c3c; border-color: rgba(231, 76, 60, 0.3); }
 
-        .exp-list {
-            list-style: none;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-            gap: 15px;
-        }
-        .exp-list li {
-            background: rgba(255, 255, 255, 0.01);
-            padding: 20px;
-            border-radius: 10px;
-            border: 1px dashed var(--card-border);
+        /* footer */
+
+        footer {
             text-align: center;
-            transition: border-color 0.2s;
-        }
-        .exp-list li:hover {
-            border-color: var(--accent);
-        }
-        .exp-list span {
-            color: var(--text-muted);
-            display: block;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 6px;
+            padding: 30px;
+            color: #666666;
+            font-size: 13px;
         }
 
-        .contact-btn {
-            display: inline-block;
-            background: var(--accent);
-            color: white;
-            text-decoration: none;
-            border-radius: 8px;
-            padding: 14px 28px;
-            font-size: 0.95rem;
-            font-weight: bold;
-            margin-top: 20px;
-            transition: all 0.2s ease;
-            text-align: center;
-        }
-
-        .contact-btn:hover {
-            background: var(--accent-hover);
-            transform: translateY(-1px);
-        }
+        /* mobile */
 
         @media (max-width: 600px) {
-            #typewriter { font-size: 2rem; }
-            section { padding: 20px; }
+            .hero h1 {
+                font-size: 40px;
+            }
+
+            .hero p {
+                font-size: 15px;
+            }
+
+            .container {
+                width: 88%;
+            }
         }
     </style>
 </head>
+
 <body>
 
-    <header>
-        <div class="profile-container">
-            <img id="discord-avatar" src="https://discord.com/assets/c09a719e83f5b3115f85.png" alt="Izzy">
-            <div class="status-dot" id="status-dot"></div>
+    <!-- hero -->
+
+    <div class="hero">
+
+        <img
+            class="profile-image"
+            src="images/profile.png"
+            alt="Izzy"
+        >
+
+        <h1>Hey! I'm Izzy</h1>
+
+        <p>
+            Developer, Community Manager & Discord Systems Builder
+        </p>
+
+        <div class="scroll">
+            Scroll Down ↓
         </div>
-        <div class="typewriter-container">
-            <div id="typewriter"></div>
-        </div>
-        <p class="subtitle">15-Year-Old Programmer & Community Manager</p>
-        <div id="custom-status"></div>
 
-        <div id="spotify-box">
-            <img id="spotify-album-art" src="" alt="Album Art">
-            <div class="spotify-details">
-                <div class="spotify-title" id="spotify-song">Not listening to anything</div>
-                <div class="spotify-artist" id="spotify-artist">Spotify</div>
-            </div>
-        </div>
-    </header>
+    </div>
 
-    <section id="about">
-        <h2>About Me</h2>
-        <p style="color: var(--text-muted);">Hey, I'm Izzy. I've been setting up Discord servers, managing communities, and building custom bots/systems for over 2 years now. I also code scripts and work on web dashboard setups.</p>
-        
-        <div class="tech-icons">
-            <div class="tech-card">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML">
-                HTML / CSS
-            </div>
-            <div class="tech-card">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python">
-                Python
-            </div>
-            <div class="tech-card">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" alt="Java">
-                Java
-            </div>
-            <div class="tech-card">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/discordjs/discordjs-original.svg" alt="Discord Systems">
-                Discord Systems
-            </div>
-        </div>
-    </section>
+    <!-- content -->
 
-    <section id="projects">
-        <h2>Projects</h2>
-        <div class="grid">
-            <div class="card">
-                <div>
-                    <h3>Derealization VR</h3>
-                    <p><strong>Members:</strong> 3k+</p>
-                    <p><strong>Role:</strong> Community Director/Manager</p>
-                </div>
-                <div>
-                    <span class="status inactive">Retired</span><br>
-                    <a href="https://discord.gg/fall-royale-vr-1241087311220047905" target="_blank">Join Server &rarr;</a>
-                </div>
-            </div>
-            
-            <div class="card">
-                <div>
-                    <h3>Fractured VR</h3>
-                    <p><strong>Members:</strong> 500+</p>
-                    <p><strong>Role:</strong> Community Manager</p>
-                </div>
-                <div>
-                    <span class="status active">Active</span><br>
-                    <a href="https://discord.gg/fracturedvr" target="_blank">Join Server &rarr;</a>
-                </div>
+    <main class="container">
+
+        <!-- connect -->
+
+        <section>
+
+            <h2>Connect With Me</h2>
+
+            <div class="buttons">
+
+                <button onclick="copyDiscord()">
+                    Discord: izzy.js
+                </button>
+
+                <a
+                    class="button"
+                    href="https://github.com/izzydizzyy"
+                    target="_blank"
+                >
+                    GitHub: izzydizzyy
+                </a>
+
             </div>
 
-            <div class="card">
-                <div>
-                    <h3>PVP Mayhem</h3>
-                    <p><strong>Members:</strong> 50+</p>
-                    <p><strong>Role:</strong> Community Manager</p>
+        </section>
+
+        <!-- games -->
+
+        <section>
+
+            <h2>My Games</h2>
+
+            <div class="games">
+
+                <div class="game">
+
+                    <img
+                        src="images/dont-blink-vr.png"
+                        alt="Dont Blink VR"
+                    >
+
+                    <div class="game-content">
+
+                        <h3>Moderator</h3>
+
+                        <p>
+                            Dont Blink VR — 2k+ Members
+                        </p>
+
+                    </div>
+
                 </div>
-                <div>
-                    <span class="status active">Active</span><br>
-                    <a href="https://discord.gg/qPdWqrTc9N" target="_blank">Join Server &rarr;</a>
+
+                <div class="game">
+
+                    <img
+                        src="images/fractured-vr.png"
+                        alt="Fractured VR"
+                    >
+
+                    <div class="game-content">
+
+                        <h3>Community Manager</h3>
+
+                        <p>
+                            Fractured VR — 700+ Members
+                        </p>
+
+                    </div>
+
                 </div>
+
+                <div class="game">
+
+                    <img
+                        src="images/fear-of-the-dark.png"
+                        alt="Fear of The Dark"
+                    >
+
+                    <div class="game-content">
+
+                        <h3>Moderator</h3>
+
+                        <p>
+                            Fear of The Dark — 140+ Members
+                        </p>
+
+                    </div>
+
+                </div>
+
             </div>
 
-            <div class="card">
-                <div>
-                    <h3>Dont Blink VR</h3>
-                    <p><strong>Members:</strong> 2k+</p>
-                    <p><strong>Role:</strong> Moderator</p>
+        </section>
+
+        <!-- stack -->
+
+        <section>
+
+            <h2>My Stack</h2>
+
+            <div class="stack">
+
+                <div class="skill">
+                    Python
                 </div>
-                <div>
-                    <span class="status active">Active</span><br>
-                    <a href="https://discord.gg/tmPbWCWXgt" target="_blank">Join Server &rarr;</a>
+
+                <div class="skill">
+                    JavaScript
                 </div>
+
+                <div class="skill">
+                    HTML
+                </div>
+
+                <div class="skill">
+                    Backend Systems (Discord)
+                </div>
+
             </div>
 
-            <div class="card">
-                <div>
-                    <h3>SMAG</h3>
-                    <p><strong>Members:</strong> 50+</p>
-                    <p><strong>Role:</strong> Community Manager</p>
-                </div>
-                <div>
-                    <span class="status active">Active</span><br>
-                    <a href="https://discord.gg/DTH5cXzAAX" target="_blank">Join Server &rarr;</a>
-                </div>
-            </div>
+        </section>
 
-            <div class="card">
-                <div>
-                    <h3>Scary Baboon</h3>
-                    <p><strong>Members:</strong> 200k+</p>
-                    <p><strong>Role:</strong> Beta Tester</p>
-                </div>
-                <div>
-                    <span class="status inactive">Quit</span><br>
-                    <a href="https://discord.gg/scarybaboon" target="_blank">Join Server &rarr;</a>
-                </div>
-            </div>
-        </div>
-    </section>
+    </main>
 
-    <section id="experience">
-        <h2>Experience</h2>
-        <ul class="exp-list">
-            <li><span>Management</span>2+ Years</li>
-            <li><span>Moderation</span>2+ Years</li>
-            <li><span>Discord Systems</span>2+ Years</li>
-            <li><span>Beta Testing</span>1 Year</li>
-        </ul>
-    </section>
+    <footer>
 
-    <section id="services">
-        <h2>Services</h2>
-        <div class="grid">
-            <div class="card">
-                <h3>Server Setup</h3>
-                <p>Full Discord server layouts, advanced role setups, permissions, and built-in features.</p>
-            </div>
-            <div class="card">
-                <h3>Web Dashboard</h3>
-                <p>Clean custom front-end styling and layouts tailored to your project.</p>
-            </div>
-            <div class="card">
-                <h3>Custom Discord Bot</h3>
-                <p>Tailor-made bots built to do exactly what you want, online 24/7.</p>
-            </div>
-            <div class="card">
-                <h3>Community Management</h3>
-                <p>Keeping chat safe, handling situations, and keeping events running cleanly.</p>
-            </div>
-        </div>
-    </section>
+        © 2026 Izzy. Built with HTML, CSS & JavaScript.
 
-    <section id="contact">
-        <h2>Get in touch!</h2>
-        <div style="display: flex; flex-direction: column; gap: 10px;">
-            <p><strong>Discord Username:</strong> <span style="color: var(--accent)">izzy.js</span></p>
-            <p><strong>Email Address:</strong> <span style="color: var(--accent)">izzyyggs@gmail.com</span></p>
-            <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 5px;">Feel free to drop a direct message on Discord or send an inquiry via email for system creations, setups, or community management roles.</p>
-            <div>
-                <a href="mailto:izzyyggs@gmail.com" class="contact-btn">Shoot Me An Email</a>
-            </div>
-        </div>
-    </section>
+    </footer>
 
     <script>
-        const DISCORD_ID = "1313630076809510975";
-        const headingText = "Hiya, I'm Izzy";
-        const typewriterElement = document.getElementById("typewriter");
-        let charIndex = 0;
 
-        function type() {
-            if (charIndex < headingText.length) {
-                typewriterElement.innerHTML += headingText.charAt(charIndex);
-                charIndex++;
-                setTimeout(type, 90); 
-            }
+        function copyDiscord() {
+
+            navigator.clipboard.writeText("izzy.js");
+
+            alert("Discord username copied!");
+
         }
 
-        function fetchDiscordStatus() {
-            fetch(`https://api.lanyard.rest/v1/users/${DISCORD_ID}`)
-                .then(res => res.json())
-                .then(response => {
-                    if (!response.success) return;
-                    const data = response.data;
-                    
-                   
-                    const avatarImg = document.getElementById('discord-avatar');
-                    if(data.discord_user.avatar) {
-                        avatarImg.src = `https://cdn.discordapp.com/avatars/${DISCORD_ID}/${data.discord_user.avatar}.png?size=256`;
-                    }
-
-                    
-                    const statusDot = document.getElementById('status-dot');
-                    const statusColors = {
-                        online: '#23a55a',
-                        idle: '#f0b232',
-                        dnd: '#f23f43',
-                        offline: '#747f8d'
-                    };
-                    statusDot.style.backgroundColor = statusColors[data.discord_status] || statusColors.offline;
-
-                   
-                    const customStatusBox = document.getElementById('custom-status');
-                    const customActivity = data.activities.find(act => act.type === 4);
-                    if (customActivity && customActivity.state) {
-                        customStatusBox.innerText = `Status: ${customActivity.state}`;
-                        customStatusBox.style.display = 'inline-block';
-                    } else {
-                        customStatusBox.style.display = 'none';
-                    }
-
-                    
-                    const spotifyBox = document.getElementById('spotify-box');
-                    if (data.listening_to_spotify && data.spotify) {
-                        document.getElementById('spotify-song').innerText = data.spotify.track_id ? data.spotify.song : "Listening to Spotify";
-                        document.getElementById('spotify-artist').innerText = `by ${data.spotify.artist.replace(/;/g, ',')}`;
-                        document.getElementById('spotify-album-art').src = data.spotify.album_art_url || '';
-                        spotifyBox.style.display = 'flex';
-                    } else {
-                        spotifyBox.style.display = 'none';
-                    }
-                })
-                .catch(err => console.error(err));
-        }
-
-        window.onload = () => {
-            type();
-            fetchDiscordStatus();
-            setInterval(fetchDiscordStatus, 15000); 
-        };
     </script>
+
 </body>
 </html>
