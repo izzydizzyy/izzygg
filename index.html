@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Izzy!</title>
+
+<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+<link rel="preconnect" href="https://api.lanyard.rest" crossorigin>
+<link rel="preconnect" href="https://cdn.discordapp.com" crossorigin>
+<link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+<link rel="dns-prefetch" href="https://api.lanyard.rest">
+<link rel="dns-prefetch" href="https://cdn.discordapp.com">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+
+* {
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+
+body {
+
+    height:100vh;
+
+    background:#0d0d0d;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    color:white;
+
+}
+
+
+.container {
+
+    text-align:center;
+
+}
+
+
+h1 {
+
+    font-size:70px;
+
+    font-weight:800;
+
+    letter-spacing:-2px;
+
+}
+
+
+.blurple {
+
+    color:#5865F2;
+
+    text-shadow:
+    0 0 10px rgba(88,101,242,.8),
+    0 0 25px rgba(88,101,242,.5);
+
+}
+
+
+.main-text {
+
+    margin-top:15px;
+
+    color:#a1a1a1;
+
+    font-size:20px;
+
+}
+
+
+.icons {
+
+    margin-top:35px;
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:18px;
+
+}
+
+
+.icon {
+
+    width:60px;
+
+    height:60px;
+
+    background:#161616;
+
+    border:1px solid #2a2a2a;
+
+    border-radius:16px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    color:white;
+
+    font-size:28px;
+
+    text-decoration:none;
+
+    cursor:pointer;
+
+    transition:.3s ease;
+
+}
+
+
+.icon:hover {
+
+    transform:translateY(-6px);
+
+    color:#5865F2;
+
+    border-color:#5865F2;
+
+    box-shadow:
+    0 0 15px rgba(88,101,242,.4);
+
+}
+
+
+.discord-card {
+
+    margin:35px auto 0;
+
+    width:350px;
+
+    background:#161616;
+
+    border:1px solid #2a2a2a;
+
+    border-radius:20px;
+
+    padding:20px;
+
+    text-align:left;
+
+    transition:.3s ease;
+
+}
+
+
+.discord-card:hover {
+
+    transform:translateY(-5px);
+
+    border-color:#5865F2;
+
+    box-shadow:
+    0 0 20px rgba(88,101,242,.35);
+
+}
+
+
+
+.discord-header {
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    font-size:18px;
+
+    font-weight:bold;
+
+}
+
+
+.discord-header i {
+
+    color:#5865F2;
+
+}
+
+
+.discord-status {
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    margin-top:12px;
+
+    color:#a1a1a1;
+
+    font-size:14px;
+
+}
+
+
+.status-dot {
+
+    width:10px;
+
+    height:10px;
+
+    border-radius:50%;
+
+    background:#23a559; /* default: online - green */
+
+}
+
+.status-dot[data-status="online"] {
+    background:#23a559; /* Online - Green */
+}
+
+.status-dot[data-status="idle"] {
+    background:#f0b232; /* Idle - Yellow */
+}
+
+.status-dot[data-status="dnd"] {
+    background:#f23f43; /* DND - Red */
+}
+
+.status-dot[data-status="offline"] {
+    background:#80848e; /* Offline - Gray */
+}
+
+
+
+.status-dot.vr {
+    width:16px;
+    height:16px;
+    border-radius:50%;
+    background:#23a559;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.status-dot.vr i {
+    font-size:10px;
+    color:#0d0d0d;
+}
+
+
+
+.discord-user {
+
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+
+    margin-top:20px;
+
+}
+
+
+.discord-user img {
+
+    width:55px;
+
+    height:55px;
+
+    border-radius:50%;
+
+}
+
+
+
+.discord-user h3 {
+
+    font-size:18px;
+
+}
+
+
+.discord-user p {
+
+    margin-top:5px;
+
+    color:#888;
+
+    font-size:14px;
+
+}
+
+
+.notification {
+
+    position:fixed;
+
+    bottom:30px;
+
+    left:50%;
+
+    transform:translateX(-50%);
+
+    background:#5865F2;
+
+    padding:12px 25px;
+
+    border-radius:12px;
+
+    opacity:0;
+
+    pointer-events:none;
+
+    transition:.3s ease;
+
+}
+
+
+.notification.show {
+
+    opacity:1;
+
+    bottom:50px;
+
+}
+
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+<h1>
+Hey, I'm <span class="blurple">Izzy!</span>
+</h1>
+
+
+<p class="main-text">
+Management - Programming - Moderation - VR
+</p>
+
+
+<a href="projects.html" style="display:inline-block;margin-top:20px;color:#5865F2;text-decoration:none;font-size:15px;font-weight:bold;">
+View my Projects <i class="fa-solid fa-arrow-right"></i>
+</a>
+
+
+
+<div class="icons">
+
+
+<div class="icon" onclick="copyDiscord()" title="Copy Discord">
+<i class="fa-brands fa-discord"></i>
+</div>
+
+
+<a class="icon"
+href="https://github.com/izzydizzyy"
+target="_blank"
+title="GitHub">
+
+<i class="fa-brands fa-github"></i>
+
+</a>
+
+
+
+<a class="icon"
+href="https://emoji.gg/user/iamizzyis.shai"
+target="_blank"
+title="Emoji.gg">
+
+<i class="fa-regular fa-face-smile-beam"></i>
+
+</a>
+
+
+</div>
+
+
+
+<div class="discord-card">
+
+
+<div class="discord-header">
+
+<i class="fa-brands fa-discord"></i>
+
+<span>Live Discord</span>
+
+</div>
+
+
+
+<div class="discord-status">
+
+<div class="status-dot" id="status-dot" data-status="online"></div>
+
+<span id="status">Online</span>
+
+</div>
+
+
+
+<div class="discord-user">
+
+
+<img id="discord-avatar"
+src="https://cdn.discordapp.com/embed/avatars/0.png"
+loading="eager"
+decoding="async">
+
+
+<div>
+
+<h3 id="discord-name">
+Loading...
+</h3>
+
+
+<p id="discord-activity">
+Loading activity...
+</p>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+<div class="notification" id="notification">
+
+Discord username copied!
+
+</div>
+
+
+
+<script>
+
+
+function copyDiscord(){
+
+navigator.clipboard.writeText("izzy.js");
+
+
+let notification =
+document.getElementById("notification");
+
+
+notification.classList.add("show");
+
+
+setTimeout(()=>{
+
+notification.classList.remove("show");
+
+},2500);
+
+
+}
+
+
+const discordID = "1313630076809510975";
+
+
+const statusLabels = {
+    online:"Online",
+    idle:"Idle",
+    dnd:"Do Not Disturb",
+    offline:"Offline"
+};
+
+
+function renderPresence(user){
+
+    document.getElementById("discord-name").innerText =
+    user.discord_user.global_name || user.discord_user.username;
+
+
+    const avatar = user.discord_user.avatar;
+
+    document.getElementById("discord-avatar").src =
+    avatar
+    ? `https://cdn.discordapp.com/avatars/${user.discord_user.id}/${avatar}.png?size=64`
+    : "https://cdn.discordapp.com/embed/avatars/0.png";
+
+
+    if(user.activities && user.activities.length > 0){
+
+    document.getElementById("discord-activity").innerText =
+    user.activities[0].name;
+
+    }
+
+    else {
+
+    document.getElementById("discord-activity").innerText =
+    "No activity";
+
+    }
+
+
+    const dot = document.getElementById("status-dot");
+
+    const rawStatus = user.discord_status || "offline";
+
+    dot.setAttribute("data-status", rawStatus);
+
+
+    document.getElementById("status").innerText =
+    statusLabels[rawStatus] || rawStatus;
+
+
+    const onVR = user.activities && user.activities.some(a =>
+    a.name && a.name.toLowerCase().includes("vr")
+    );
+
+
+    dot.classList.remove("vr");
+
+    dot.innerHTML = "";
+
+
+    if(rawStatus === "online" && onVR){
+
+    dot.classList.add("vr");
+
+    dot.innerHTML = '<i class="fa-solid fa-vr-cardboard"></i>';
+
+    document.getElementById("status").innerText = "Online on VR";
+
+    }
+
+}
+
+
+const controller = new AbortController();
+
+const timeout = setTimeout(()=> controller.abort(), 4000);
+
+
+fetch(`https://api.lanyard.rest/v1/users/${discordID}`, { signal: controller.signal })
+
+.then(res=>res.json())
+
+.then(data=>{
+
+clearTimeout(timeout);
+
+renderPresence(data.data);
+
+})
+
+
+.catch(()=>{
+
+clearTimeout(timeout);
+
+document.getElementById("discord-activity").innerText =
+
+"Offline";
+
+
+document.getElementById("status-dot").setAttribute("data-status","offline");
+
+document.getElementById("status").innerText = "Offline";
+
+});
+
+
+</script>
+
+
+</body>
+</html>
