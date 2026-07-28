@@ -27,9 +27,9 @@
 
 body {
 
-    height:100vh;
+    min-height:100vh;
 
-    background:#0d0d0d;
+    background:#000000;
 
     display:flex;
 
@@ -38,6 +38,8 @@ body {
     align-items:center;
 
     color:white;
+
+    padding:40px 20px;
 
 }
 
@@ -101,9 +103,9 @@ h1 {
 
     height:60px;
 
-    background:#161616;
+    background:#0c0c0c;
 
-    border:1px solid #2a2a2a;
+    border:1px solid #232323;
 
     border-radius:16px;
 
@@ -146,9 +148,9 @@ h1 {
 
     width:350px;
 
-    background:#161616;
+    background:#0c0c0c;
 
-    border:1px solid #2a2a2a;
+    border:1px solid #232323;
 
     border-radius:20px;
 
@@ -180,11 +182,21 @@ h1 {
 
     align-items:center;
 
-    gap:10px;
+    justify-content:space-between;
 
     font-size:18px;
 
     font-weight:bold;
+
+}
+
+.discord-header-left {
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
 
 }
 
@@ -221,24 +233,26 @@ h1 {
 
     border-radius:50%;
 
-    background:#23a559; /* default: online - green */
+    background:#23a559;
+
+    flex-shrink:0;
 
 }
 
 .status-dot[data-status="online"] {
-    background:#23a559; /* Online - Green */
+    background:#23a559;
 }
 
 .status-dot[data-status="idle"] {
-    background:#f0b232; /* Idle - Yellow */
+    background:#f0b232;
 }
 
 .status-dot[data-status="dnd"] {
-    background:#f23f43; /* DND - Red */
+    background:#f23f43;
 }
 
 .status-dot[data-status="offline"] {
-    background:#80848e; /* Offline - Gray */
+    background:#80848e;
 }
 
 
@@ -255,7 +269,7 @@ h1 {
 
 .status-dot.vr i {
     font-size:10px;
-    color:#0d0d0d;
+    color:#000000;
 }
 
 
@@ -273,13 +287,45 @@ h1 {
 }
 
 
-.discord-user img {
+.avatar-wrap {
+
+    position:relative;
+
+    width:55px;
+
+    height:55px;
+
+    flex-shrink:0;
+
+}
+
+
+.discord-user img.avatar {
 
     width:55px;
 
     height:55px;
 
     border-radius:50%;
+
+    display:block;
+
+}
+
+
+.avatar-decoration {
+
+    position:absolute;
+
+    top:-6px;
+
+    left:-6px;
+
+    width:67px;
+
+    height:67px;
+
+    pointer-events:none;
 
 }
 
@@ -300,6 +346,175 @@ h1 {
 
     font-size:14px;
 
+}
+
+
+
+
+.badges {
+
+    margin-top:16px;
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:8px;
+
+}
+
+.badges.hidden {
+    display:none;
+}
+
+.badge {
+
+    width:26px;
+
+    height:26px;
+
+    border-radius:8px;
+
+    background:#161616;
+
+    border:1px solid #262626;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:13px;
+
+    color:#5865F2;
+
+}
+
+
+
+
+.spotify-card {
+
+    margin-top:16px;
+
+    padding-top:16px;
+
+    border-top:1px solid #232323;
+
+    display:none;
+
+    align-items:center;
+
+    gap:12px;
+
+}
+
+.spotify-card.show {
+    display:flex;
+}
+
+.spotify-card img {
+
+    width:46px;
+
+    height:46px;
+
+    border-radius:8px;
+
+    flex-shrink:0;
+
+}
+
+.spotify-info {
+
+    min-width:0;
+
+    flex:1;
+
+}
+
+.spotify-info .sp-title {
+
+    font-size:13px;
+
+    font-weight:bold;
+
+    color:#1DB954;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:6px;
+
+}
+
+.spotify-info .sp-song {
+
+    margin-top:3px;
+
+    font-size:13px;
+
+    color:white;
+
+    white-space:nowrap;
+
+    overflow:hidden;
+
+    text-overflow:ellipsis;
+
+}
+
+.spotify-info .sp-artist {
+
+    margin-top:2px;
+
+    font-size:12px;
+
+    color:#888;
+
+    white-space:nowrap;
+
+    overflow:hidden;
+
+    text-overflow:ellipsis;
+
+}
+
+.sp-bars {
+
+    display:flex;
+
+    align-items:flex-end;
+
+    gap:2px;
+
+    height:14px;
+
+    flex-shrink:0;
+
+}
+
+.sp-bars span {
+
+    width:3px;
+
+    background:#1DB954;
+
+    border-radius:1px;
+
+    animation:sp-bounce 1s ease-in-out infinite;
+
+}
+
+.sp-bars span:nth-child(1){height:40%;animation-delay:0s;}
+.sp-bars span:nth-child(2){height:100%;animation-delay:.2s;}
+.sp-bars span:nth-child(3){height:60%;animation-delay:.4s;}
+
+@keyframes sp-bounce {
+    0%,100% { height:30%; }
+    50% { height:100%; }
 }
 
 
@@ -402,9 +617,10 @@ title="Emoji.gg">
 
 <div class="discord-header">
 
+<div class="discord-header-left">
 <i class="fa-brands fa-discord"></i>
-
 <span>Live Discord</span>
+</div>
 
 </div>
 
@@ -423,10 +639,14 @@ title="Emoji.gg">
 <div class="discord-user">
 
 
+<div class="avatar-wrap">
 <img id="discord-avatar"
+class="avatar"
 src="https://cdn.discordapp.com/embed/avatars/0.png"
 loading="eager"
 decoding="async">
+<img id="avatar-decoration" class="avatar-decoration" style="display:none;">
+</div>
 
 
 <div>
@@ -443,6 +663,24 @@ Loading activity...
 
 </div>
 
+
+</div>
+
+
+<div class="badges hidden" id="badges"></div>
+
+
+<div class="spotify-card" id="spotify-card">
+
+<img id="spotify-art" src="" alt="album art">
+
+<div class="spotify-info">
+<div class="sp-title"><i class="fa-brands fa-spotify"></i> Listening to Spotify</div>
+<div class="sp-song" id="spotify-song"></div>
+<div class="sp-artist" id="spotify-artist"></div>
+</div>
+
+<div class="sp-bars"><span></span><span></span><span></span></div>
 
 </div>
 
@@ -498,6 +736,75 @@ const statusLabels = {
 };
 
 
+
+const BADGE_FLAGS = [
+    { bit:1<<0,  icon:"fa-solid fa-user-shield",  title:"Discord Staff" },
+    { bit:1<<1,  icon:"fa-solid fa-handshake",    title:"Partnered Server Owner" },
+    { bit:1<<2,  icon:"fa-solid fa-bolt",         title:"HypeSquad Events" },
+    { bit:1<<3,  icon:"fa-solid fa-bug",          title:"Bug Hunter Level 1" },
+    { bit:1<<6,  icon:"fa-solid fa-house-chimney",title:"HypeSquad Bravery" },
+    { bit:1<<7,  icon:"fa-solid fa-house-chimney",title:"HypeSquad Brilliance" },
+    { bit:1<<8,  icon:"fa-solid fa-house-chimney",title:"HypeSquad Balance" },
+    { bit:1<<9,  icon:"fa-solid fa-star",         title:"Early Supporter" },
+    { bit:1<<14, icon:"fa-solid fa-bug",          title:"Bug Hunter Level 2" },
+    { bit:1<<16, icon:"fa-solid fa-code",         title:"Early Verified Bot Developer" },
+    { bit:1<<17, icon:"fa-solid fa-certificate",  title:"Discord Certified Moderator" },
+    { bit:1<<22, icon:"fa-solid fa-hammer",       title:"Active Developer" }
+];
+
+
+function renderBadges(publicFlags){
+
+    const container = document.getElementById("badges");
+
+    container.innerHTML = "";
+
+    if(!publicFlags){
+        container.classList.add("hidden");
+        return;
+    }
+
+    const owned = BADGE_FLAGS.filter(b => (publicFlags & b.bit) === b.bit);
+
+    if(owned.length === 0){
+        container.classList.add("hidden");
+        return;
+    }
+
+    container.classList.remove("hidden");
+
+    owned.forEach(b=>{
+        const el = document.createElement("div");
+        el.className = "badge";
+        el.title = b.title;
+        el.innerHTML = `<i class="${b.icon}"></i>`;
+        container.appendChild(el);
+    });
+
+}
+
+
+function renderSpotify(user){
+
+    const card = document.getElementById("spotify-card");
+
+    if(user.listening_to_spotify && user.spotify){
+
+        card.classList.add("show");
+
+        document.getElementById("spotify-art").src = user.spotify.album_art_url;
+        document.getElementById("spotify-song").innerText = user.spotify.song;
+        document.getElementById("spotify-artist").innerText = user.spotify.artist;
+
+    } else {
+
+        card.classList.remove("show");
+
+    }
+
+}
+
+
 function renderPresence(user){
 
     document.getElementById("discord-name").innerText =
@@ -512,10 +819,24 @@ function renderPresence(user){
     : "https://cdn.discordapp.com/embed/avatars/0.png";
 
 
+   
+    const decoEl = document.getElementById("avatar-decoration");
+    const decoration = user.discord_user.avatar_decoration_data;
+
+    if(decoration && decoration.asset){
+        decoEl.src = `https://cdn.discordapp.com/avatar-decoration-presets/${decoration.asset}.png?size=96`;
+        decoEl.style.display = "block";
+    } else {
+        decoEl.style.display = "none";
+    }
+
+
     if(user.activities && user.activities.length > 0){
 
+    const activity = user.activities.find(a => a.type !== 4 && a.type !== 2) || user.activities[0];
+
     document.getElementById("discord-activity").innerText =
-    user.activities[0].name;
+    activity.name;
 
     }
 
@@ -525,6 +846,11 @@ function renderPresence(user){
     "No activity";
 
     }
+
+
+    renderBadges(user.discord_user.public_flags);
+
+    renderSpotify(user);
 
 
     const dot = document.getElementById("status-dot");
@@ -561,38 +887,97 @@ function renderPresence(user){
 }
 
 
-const controller = new AbortController();
+function setOffline(){
 
-const timeout = setTimeout(()=> controller.abort(), 4000);
+    document.getElementById("discord-activity").innerText = "Offline";
 
+    document.getElementById("status-dot").setAttribute("data-status","offline");
 
-fetch(`https://api.lanyard.rest/v1/users/${discordID}`, { signal: controller.signal })
+    document.getElementById("status").innerText = "Offline";
 
-.then(res=>res.json())
+    document.getElementById("spotify-card").classList.remove("show");
 
-.then(data=>{
-
-clearTimeout(timeout);
-
-renderPresence(data.data);
-
-})
+}
 
 
-.catch(()=>{
 
-clearTimeout(timeout);
+let socket;
+let heartbeatInterval;
+let reconnectTimeout;
 
-document.getElementById("discord-activity").innerText =
+function connectLanyard(){
 
-"Offline";
+    try {
+
+        socket = new WebSocket("wss://api.lanyard.rest/socket");
+
+        socket.onopen = () => {
+
+            socket.send(JSON.stringify({
+                op:2,
+                d:{ subscribe_to_id: discordID }
+            }));
+
+        };
+
+        socket.onmessage = (event) => {
+
+            const payload = JSON.parse(event.data);
+
+            if(payload.op === 1){
+
+                const interval = payload.d.heartbeat_interval;
+
+                heartbeatInterval = setInterval(()=>{
+                    if(socket.readyState === WebSocket.OPEN){
+                        socket.send(JSON.stringify({ op:3 }));
+                    }
+                }, interval);
+
+            }
+
+            if(payload.t === "INIT_STATE" || payload.t === "PRESENCE_UPDATE"){
+
+                renderPresence(payload.d);
+
+            }
+
+        };
+
+        socket.onclose = () => {
+
+            clearInterval(heartbeatInterval);
+
+            reconnectTimeout = setTimeout(connectLanyard, 5000);
+
+        };
+
+        socket.onerror = () => {
+
+            socket.close();
+
+        };
+
+    } catch(e){
+
+        fallbackFetch();
+
+    }
+
+}
 
 
-document.getElementById("status-dot").setAttribute("data-status","offline");
+function fallbackFetch(){
 
-document.getElementById("status").innerText = "Offline";
+    fetch(`https://api.lanyard.rest/v1/users/${discordID}`)
+    .then(res=>res.json())
+    .then(data=> renderPresence(data.data))
+    .catch(setOffline);
 
-});
+}
+
+
+connectLanyard();
 
 
 </script>
