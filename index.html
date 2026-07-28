@@ -349,7 +349,7 @@ h1 {
 }
 
 
-
+/* Badges */
 
 .badges {
 
@@ -392,7 +392,7 @@ h1 {
 }
 
 
-
+/* Spotify */
 
 .spotify-card {
 
@@ -552,7 +552,7 @@ h1 {
 }
 
 
-
+/* Lanyard loading reminder */
 
 .lanyard-reminder {
 
@@ -609,7 +609,7 @@ h1 {
 }
 
 
-
+/* Spotify embed player */
 
 .spotify-embed-wrap {
 
@@ -823,7 +823,7 @@ const statusLabels = {
 };
 
 
-
+// Common Discord public_flags badges (bitwise)
 const BADGE_FLAGS = [
     { bit:1<<0,  icon:"fa-solid fa-user-shield",  title:"Discord Staff" },
     { bit:1<<1,  icon:"fa-solid fa-handshake",    title:"Partnered Server Owner" },
@@ -880,7 +880,8 @@ function renderSpotify(user){
 
     if(user.listening_to_spotify && user.spotify && user.spotify.track_id){
 
-       
+        // Only reload the embed if the track actually changed, so it doesn't
+        // restart itself every time the presence updates
         if(currentSpotifyTrack !== user.spotify.track_id){
 
             currentSpotifyTrack = user.spotify.track_id;
@@ -917,7 +918,7 @@ function renderPresence(user){
     : "https://cdn.discordapp.com/embed/avatars/0.png";
 
 
-   
+    // Profile decoration
     const decoEl = document.getElementById("avatar-decoration");
     const decoration = user.discord_user.avatar_decoration_data;
 
@@ -998,6 +999,7 @@ function setOffline(){
 }
 
 
+// Lanyard v2 - live via WebSocket, falls back to REST polling if it can't connect
 let socket;
 let heartbeatInterval;
 let reconnectTimeout;
@@ -1077,7 +1079,7 @@ function fallbackFetch(){
 connectLanyard();
 
 
-
+// Lanyard loading reminder - fades in blurred, holds, fades out
 window.addEventListener("DOMContentLoaded", () => {
 
     const reminder = document.getElementById("lanyard-reminder");
