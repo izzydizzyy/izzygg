@@ -552,6 +552,90 @@ h1 {
 }
 
 
+
+
+.lanyard-reminder {
+
+    position:fixed;
+
+    top:30px;
+
+    left:50%;
+
+    transform:translateX(-50%);
+
+    background:#0c0c0c;
+
+    border:1px solid #232323;
+
+    color:#a1a1a1;
+
+    padding:12px 22px;
+
+    border-radius:12px;
+
+    font-size:14px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    opacity:0;
+
+    filter:blur(8px);
+
+    pointer-events:none;
+
+    transition:opacity 1s ease, filter 1s ease;
+
+    z-index:999;
+
+}
+
+.lanyard-reminder i {
+
+    color:#5865F2;
+
+}
+
+.lanyard-reminder.show {
+
+    opacity:1;
+
+    filter:blur(0px);
+
+}
+
+
+
+
+.spotify-embed-wrap {
+
+    margin-top:16px;
+
+    padding-top:16px;
+
+    border-top:1px solid #232323;
+
+    display:none;
+
+}
+
+.spotify-embed-wrap.show {
+    display:block;
+}
+
+.spotify-embed-wrap iframe {
+
+    border-radius:12px;
+
+    width:100%;
+
+}
+
+
 </style>
 
 </head>
@@ -670,17 +754,14 @@ Loading activity...
 <div class="badges hidden" id="badges"></div>
 
 
-<div class="spotify-card" id="spotify-card">
+<div class="spotify-embed-wrap" id="spotify-embed-wrap">
 
-<img id="spotify-art" src="" alt="album art">
-
-<div class="spotify-info">
-<div class="sp-title"><i class="fa-brands fa-spotify"></i> Listening to Spotify</div>
-<div class="sp-song" id="spotify-song"></div>
-<div class="sp-artist" id="spotify-artist"></div>
-</div>
-
-<div class="sp-bars"><span></span><span></span><span></span></div>
+<iframe id="spotify-embed"
+title="Spotify player"
+frameborder="0"
+allow="autoplay; encrypted-media; clipboard-write"
+loading="lazy">
+</iframe>
 
 </div>
 
@@ -696,6 +777,12 @@ Loading activity...
 
 Discord username copied!
 
+</div>
+
+
+<div class="lanyard-reminder" id="lanyard-reminder">
+<i class="fa-brands fa-discord"></i>
+<span>Reminder: My Lanyard may take a while to load.</span>
 </div>
 
 
@@ -784,21 +871,32 @@ function renderBadges(publicFlags){
 }
 
 
+let currentSpotifyTrack = null;
+
 function renderSpotify(user){
 
-    const card = document.getElementById("spotify-card");
+    const wrap = document.getElementById("spotify-embed-wrap");
+    const iframe = document.getElementById("spotify-embed");
 
-    if(user.listening_to_spotify && user.spotify){
+    if(user.listening_to_spotify && user.spotify && user.spotify.track_id){
 
-        card.classList.add("show");
+       
+        if(currentSpotifyTrack !== user.spotify.track_id){
 
-        document.getElementById("spotify-art").src = user.spotify.album_art_url;
-        document.getElementById("spotify-song").innerText = user.spotify.song;
-        document.getElementById("spotify-artist").innerText = user.spotify.artist;
+            currentSpotifyTrack = user.spotify.track_id;
+
+            iframe.src = `https://open.spotify.com/embed/track/${user.spotify.track_id}?utm_source=generator&theme=0&autoplay=1`;
+            iframe.height = "152";
+
+        }
+
+        wrap.classList.add("show");
 
     } else {
 
-        card.classList.remove("show");
+        currentSpotifyTrack = null;
+        wrap.classList.remove("show");
+        iframe.src = "";
 
     }
 
@@ -900,7 +998,6 @@ function setOffline(){
 }
 
 
-
 let socket;
 let heartbeatInterval;
 let reconnectTimeout;
@@ -978,6 +1075,26 @@ function fallbackFetch(){
 
 
 connectLanyard();
+
+
+
+window.addEventListener("DOMContentLoaded", () => {
+
+    const reminder = document.getElementById("lanyard-reminder");
+
+    setTimeout(()=>{
+
+        reminder.classList.add("show");
+
+        setTimeout(()=>{
+
+            reminder.classList.remove("show");
+
+        }, 4000);
+
+    }, 400);
+
+});
 
 
 </script>
