@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Izzyy - Projects</title>
+
+<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+<link rel="preconnect" href="https://discord.com" crossorigin>
+<link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+<link rel="dns-prefetch" href="https://discord.com">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+* {
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI', Arial, sans-serif;
+}
+
+body {
+    min-height:100vh;
+    background:radial-gradient(circle at 20% 20%, #0c0f1f 0%, #000000 55%), #000000;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    color:white;
+    padding:50px 20px;
+}
+
+.container {
+    text-align:center;
+    max-width:800px;
+}
+
+.tag {
+    display:inline-block;
+    padding:6px 14px;
+    border:1px solid #5865F2;
+    border-radius:999px;
+    color:#8f9bff;
+    font-size:12px;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    margin-bottom:18px;
+}
+
+h1 {
+    font-size:50px;
+    font-weight:800;
+    letter-spacing:-2px;
+}
+
+.blurple {
+    color:#5865F2;
+    text-shadow:
+    0 0 10px rgba(88,101,242,.8),
+    0 0 25px rgba(88,101,242,.5);
+}
+
+.main-text {
+    margin-top:12px;
+    color:#a1a1a1;
+    font-size:18px;
+}
+
+.back-link {
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    margin-top:22px;
+    color:#a1a1a1;
+    text-decoration:none;
+    font-size:14px;
+    transition:.3s ease;
+}
+
+.back-link:hover { color:#5865F2; }
+
+.projects {
+    margin-top:36px;
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+}
+
+.project-card {
+    background:#0c0c0c;
+    border:1px solid #232323;
+    border-radius:20px;
+    padding:22px;
+    text-align:left;
+    transition:.3s ease;
+}
+
+.project-card:hover {
+    transform:translateY(-5px);
+    border-color:#5865F2;
+    box-shadow:0 0 20px rgba(88,101,242,.35);
+}
+
+.project-top {
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+.project-icon {
+    width:60px;
+    height:60px;
+    border-radius:16px;
+    background:#000000;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+    flex-shrink:0;
+}
+
+.project-icon img {
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.project-icon i {
+    font-size:24px;
+    color:#5865F2;
+}
+
+.project-info h3 { font-size:19px; }
+
+.project-info .role {
+    margin-top:4px;
+    font-size:14px;
+    font-weight:bold;
+}
+
+.role-blue { color:#5865F2; }
+.role-orange { color:#e67e22; }
+
+.project-stats {
+    margin-top:16px;
+    display:flex;
+    gap:22px;
+    color:#a1a1a1;
+    font-size:14px;
+    flex-wrap:wrap;
+}
+
+.project-stats span {
+    display:flex;
+    align-items:center;
+    gap:6px;
+}
+
+.live-dot {
+    width:8px;
+    height:8px;
+    border-radius:50%;
+    background:#23a559;
+    display:inline-block;
+    animation:pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%,100% { opacity:1; }
+    50% { opacity:.35; }
+}
+
+.online-members {
+    margin-top:16px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+}
+
+.online-members.hidden { display:none; }
+
+.member-chip {
+    display:flex;
+    align-items:center;
+    gap:6px;
+    background:#161616;
+    border:1px solid #262626;
+    border-radius:999px;
+    padding:5px 10px;
+    font-size:12px;
+    color:#c4c4c4;
+}
+
+.member-chip img {
+    width:18px;
+    height:18px;
+    border-radius:50%;
+}
+
+.join-link {
+    margin-top:16px;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    background:#5865F2;
+    color:white;
+    text-decoration:none;
+    font-size:14px;
+    font-weight:bold;
+    padding:9px 16px;
+    border-radius:10px;
+    transition:.3s ease;
+}
+
+.join-link:hover { background:#4752c4; }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<span class="tag">izzy.js</span>
+
+<h1>Here's my <span class="blurple">Projects</span></h1>
+
+<p class="main-text">Servers I help manage and moderate</p>
+
+<a class="back-link" href="index.html">
+<i class="fa-solid fa-arrow-left"></i>
+Back to home
+</a>
+
+<div class="projects">
+
+<div class="project-card">
+
+<div class="project-top">
+<div class="project-icon" id="fvr-icon">
+<i class="fa-brands fa-discord"></i>
+</div>
+<div class="project-info">
+<h3 id="fvr-name">Fractured VR</h3>
+<p class="role role-blue">Manager</p>
+</div>
+</div>
+
+<div class="project-stats">
+<span><span class="live-dot"></span> <span id="fvr-presence-count">--</span> Online</span>
+<span><i class="fa-solid fa-users"></i> <span id="fvr-member-count">741</span> Members</span>
+</div>
+
+<div class="online-members hidden" id="fvr-online-members"></div>
+
+<a class="join-link" id="fvr-invite" href="https://discord.gg/fracturedvr" target="_blank">
+<i class="fa-brands fa-discord"></i> Join Discord
+</a>
+
+</div>
+
+<div class="project-card">
+
+<div class="project-top">
+<div class="project-icon">
+<i class="fa-brands fa-discord"></i>
+</div>
+<div class="project-info">
+<h3>Dont Blink VR</h3>
+<p class="role role-orange">Moderator</p>
+</div>
+</div>
+
+<div class="project-stats">
+<span><i class="fa-solid fa-users"></i> 3,058 Members</span>
+</div>
+
+<a class="join-link" href="https://discord.gg/tmPbWCWXgt" target="_blank">
+<i class="fa-brands fa-discord"></i> Join Discord
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+const fracturedVRGuildID = "1416779193500434586";
+
+function renderFracturedWidget(data){
+
+    document.getElementById("fvr-presence-count").innerText = data.presence_count;
+
+    if(data.name){
+        document.getElementById("fvr-name").innerText = data.name;
+    }
+
+    if(data.instant_invite){
+        document.getElementById("fvr-invite").href = data.instant_invite;
+    }
+
+    const membersWrap = document.getElementById("fvr-online-members");
+    membersWrap.innerHTML = "";
+
+    if(data.members && data.members.length > 0){
+
+        membersWrap.classList.remove("hidden");
+
+        data.members.slice(0, 12).forEach(member => {
+            const chip = document.createElement("div");
+            chip.className = "member-chip";
+            chip.innerHTML = `<img src="${member.avatar_url}" alt=""> ${member.username}`;
+            membersWrap.appendChild(chip);
+        });
+
+    } else {
+        membersWrap.classList.add("hidden");
+    }
+}
+
+function fetchFracturedWidget(){
+    fetch(`https://discord.com/api/guilds/${fracturedVRGuildID}/widget.json`)
+    .then(res => {
+        if(!res.ok) throw new Error("widget unavailable");
+        return res.json();
+    })
+    .then(renderFracturedWidget)
+    .catch(() => {
+        document.getElementById("fvr-presence-count").innerText = "N/A";
+    });
+}
+
+fetchFracturedWidget();
+setInterval(fetchFracturedWidget, 30000);
+</script>
+
+</body>
+</html>
