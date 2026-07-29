@@ -3,9 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Izzy!</title>
+<title>Izzy</title>
 
 <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://api.lanyard.rest" crossorigin>
 <link rel="preconnect" href="https://cdn.discordapp.com" crossorigin>
 <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
@@ -13,483 +15,520 @@
 <link rel="dns-prefetch" href="https://cdn.discordapp.com">
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
 <style>
-* {
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:'Segoe UI', Arial, sans-serif;
+:root{
+    --bg:#07080d;
+    --panel:#0d0f16;
+    --line:#1c1f2a;
+    --line-hover:#5865F2;
+    --blurple:#5865F2;
+    --blurple-dim:#8f9bff;
+    --green:#23a559;
+    --idle:#f0b232;
+    --dnd:#f23f43;
+    --offline:#80848e;
+    --spotify:#1DB954;
+    --text:#f2f3f7;
+    --text-dim:#9ba0ae;
+    --text-faint:#5b606f;
 }
 
-body {
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+    font-family:'Inter',Arial,sans-serif;
+    background:var(--bg);
+    color:var(--text);
     min-height:100vh;
-    background:radial-gradient(circle at 20% 20%, #0c0f1f 0%, #000000 55%), #000000;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    color:white;
-    padding:50px 20px;
-    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
 }
 
-body::before {
+body::before{
     content:"";
     position:fixed;
     inset:0;
     background:
-        radial-gradient(circle at 80% 10%, rgba(88,101,242,.12), transparent 40%),
-        radial-gradient(circle at 10% 90%, rgba(29,185,84,.08), transparent 40%);
+        radial-gradient(circle at 15% 8%, rgba(88,101,242,.16), transparent 42%),
+        radial-gradient(circle at 85% 92%, rgba(88,101,242,.08), transparent 40%);
     pointer-events:none;
     z-index:0;
 }
 
-.container {
-    text-align:center;
-    max-width:420px;
-    position:relative;
-    z-index:1;
-}
-
-.tag {
-    display:inline-block;
-    padding:6px 14px;
-    border:1px solid #5865F2;
-    border-radius:999px;
-    color:#8f9bff;
-    font-size:12px;
-    letter-spacing:1.5px;
-    text-transform:uppercase;
-    margin-bottom:18px;
-}
-
-h1 {
-    font-size:56px;
-    font-weight:800;
-    letter-spacing:-2px;
-    line-height:1.05;
-}
-
-.blurple {
-    color:#5865F2;
-    text-shadow:
-    0 0 10px rgba(88,101,242,.8),
-    0 0 25px rgba(88,101,242,.5);
-}
-
-.main-text {
-    margin-top:12px;
-    color:#a1a1a1;
-    font-size:18px;
-}
-
-.bio {
-    margin-top:18px;
-    color:#c4c4c4;
-    font-size:14px;
-    line-height:1.6;
-    text-align:left;
-    background:#0c0c0c;
-    border:1px solid #232323;
-    border-radius:16px;
-    padding:16px 18px;
-}
-
-.icons {
-    margin-top:28px;
-    display:flex;
-    justify-content:center;
-    gap:16px;
-}
-
-.icon {
-    width:56px;
-    height:56px;
-    background:#0c0c0c;
-    border:1px solid #232323;
-    border-radius:16px;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    color:white;
-    font-size:26px;
-    text-decoration:none;
-    cursor:pointer;
-    transition:.3s ease;
-}
-
-.icon:hover {
-    transform:translateY(-6px);
-    color:#5865F2;
-    border-color:#5865F2;
-    box-shadow:0 0 15px rgba(88,101,242,.4);
-}
-
-.section-label {
-    margin-top:32px;
-    text-align:left;
-    font-size:13px;
-    letter-spacing:1.5px;
-    text-transform:uppercase;
-    color:#666;
-}
-
-.skills {
-    margin-top:12px;
-    display:flex;
-    flex-wrap:wrap;
-    gap:10px;
-}
-
-.skill-chip {
-    display:flex;
-    align-items:center;
-    gap:8px;
-    background:#0c0c0c;
-    border:1px solid #232323;
-    border-radius:12px;
-    padding:9px 14px;
-    font-size:13px;
-    color:#e0e0e0;
-    transition:.3s ease;
-}
-
-.skill-chip:hover {
-    border-color:#5865F2;
-    color:#8f9bff;
-    transform:translateY(-3px);
-}
-
-.skill-chip i {
-    color:#5865F2;
-    font-size:15px;
-}
-
-.skill-chip.learning {
-    opacity:.75;
-    border-style:dashed;
-}
-
-.skill-chip .learning-badge {
-    font-size:10px;
-    color:#e67e22;
-    text-transform:uppercase;
-    margin-left:2px;
-}
-
-.discord-card {
-    margin:32px auto 0;
-    background:#0c0c0c;
-    border:1px solid #232323;
-    border-radius:20px;
-    padding:20px;
-    text-align:left;
-    transition:.3s ease;
-}
-
-.discord-card:hover {
-    transform:translateY(-5px);
-    border-color:#5865F2;
-    box-shadow:0 0 20px rgba(88,101,242,.35);
-}
-
-.discord-header {
+nav{
+    position:sticky;
+    top:0;
+    z-index:50;
     display:flex;
     align-items:center;
     justify-content:space-between;
-    font-size:18px;
-    font-weight:bold;
+    padding:18px 40px;
+    background:rgba(7,8,13,.75);
+    backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--line);
 }
 
-.discord-header-left {
+.brand{
     display:flex;
     align-items:center;
     gap:10px;
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:700;
+    font-size:16px;
+    letter-spacing:.2px;
 }
 
-.discord-header i {
-    color:#5865F2;
-}
-
-.discord-status {
-    display:flex;
-    align-items:center;
-    gap:8px;
-    margin-top:12px;
-    color:#a1a1a1;
-    font-size:14px;
-}
-
-.status-dot {
-    width:10px;
-    height:10px;
-    border-radius:50%;
-    background:#23a559;
-    flex-shrink:0;
-}
-
-.status-dot[data-status="online"] { background:#23a559; }
-.status-dot[data-status="idle"] { background:#f0b232; }
-.status-dot[data-status="dnd"] { background:#f23f43; }
-.status-dot[data-status="offline"] { background:#80848e; }
-
-.status-dot.vr {
-    width:16px;
-    height:16px;
-    border-radius:50%;
-    background:#23a559;
+.brand-mark{
+    width:30px;
+    height:30px;
+    border-radius:9px;
+    background:linear-gradient(135deg,var(--blurple),#2b3aad);
     display:flex;
     align-items:center;
     justify-content:center;
-}
-
-.status-dot.vr i {
-    font-size:10px;
-    color:#000000;
-}
-
-.discord-user {
-    display:flex;
-    align-items:center;
-    gap:15px;
-    margin-top:20px;
-}
-
-.avatar-wrap {
-    position:relative;
-    width:55px;
-    height:55px;
-    flex-shrink:0;
-}
-
-.discord-user img.avatar {
-    width:55px;
-    height:55px;
-    border-radius:50%;
-    display:block;
-}
-
-.avatar-decoration {
-    position:absolute;
-    top:-6px;
-    left:-6px;
-    width:67px;
-    height:67px;
-    pointer-events:none;
-}
-
-.discord-user h3 {
-    font-size:18px;
-}
-
-.discord-user p {
-    margin-top:5px;
-    color:#888;
     font-size:14px;
+    font-weight:700;
+    color:white;
+    font-family:'Space Grotesk',sans-serif;
 }
 
-.badges {
-    margin-top:16px;
-    display:flex;
-    flex-wrap:wrap;
-    gap:8px;
-}
-
-.badges.hidden { display:none; }
-
-.badge {
-    width:26px;
-    height:26px;
-    border-radius:8px;
-    background:#161616;
-    border:1px solid #262626;
+.nav-right{
     display:flex;
     align-items:center;
-    justify-content:center;
+    gap:18px;
+}
+
+.nav-status{
+    display:flex;
+    align-items:center;
+    gap:8px;
     font-size:13px;
-    color:#5865F2;
+    color:var(--text-dim);
 }
 
-.spotify-card {
+.nav-status .dot{
+    width:8px;
+    height:8px;
+    border-radius:50%;
+    background:var(--green);
+    animation:pulse 1.8s ease-in-out infinite;
+}
+
+.nav-cta{
+    background:var(--panel);
+    border:1px solid var(--line);
+    color:var(--text);
+    font-size:13px;
+    font-weight:600;
+    padding:8px 16px;
+    border-radius:9px;
+    text-decoration:none;
+    transition:.25s ease;
+}
+.nav-cta:hover{border-color:var(--blurple);color:var(--blurple-dim);}
+
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.35;}}
+
+.hero{
+    position:relative;
+    z-index:1;
+    max-width:760px;
+    margin:0 auto;
+    padding:90px 24px 40px;
+    text-align:center;
+}
+
+.eyebrow{
+    display:inline-block;
+    padding:6px 14px;
+    border:1px solid var(--blurple);
+    border-radius:999px;
+    color:var(--blurple-dim);
+    font-size:11px;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    margin-bottom:26px;
+    font-family:'Space Grotesk',sans-serif;
+}
+
+.glyph{
+    width:64px;
+    height:64px;
+    margin:0 auto 22px;
+    opacity:.9;
+}
+
+h1{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:52px;
+    font-weight:700;
+    letter-spacing:-1.5px;
+    line-height:1.08;
+}
+
+.blurple{
+    color:var(--blurple);
+    text-shadow:0 0 24px rgba(88,101,242,.55);
+}
+
+.subtitle{
     margin-top:16px;
-    padding-top:16px;
-    border-top:1px solid #232323;
-    display:none;
-    flex-direction:column;
-    gap:10px;
+    color:var(--text-dim);
+    font-size:16px;
+    letter-spacing:.2px;
 }
 
-.spotify-card.show { display:flex; }
+.subtitle .sep{color:var(--text-faint);margin:0 8px;}
 
-.spotify-top {
+.stats{
+    margin-top:44px;
     display:flex;
-    align-items:center;
-    gap:12px;
+    justify-content:center;
+    gap:0;
 }
 
-.spotify-top img {
+.stat{
+    padding:0 28px;
+    text-align:center;
+}
+
+.stat + .stat{border-left:1px solid var(--line);}
+
+.stat .num{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:26px;
+    font-weight:700;
+}
+
+.stat .num.blurple-num{color:var(--blurple-dim);}
+.stat .num.green-num{color:var(--green);}
+.stat .num.gold-num{color:#e6b422;}
+
+.stat .label{
+    margin-top:4px;
+    font-size:11px;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    color:var(--text-faint);
+}
+
+.icons{
+    margin-top:36px;
+    display:flex;
+    justify-content:center;
+    gap:14px;
+}
+
+.icon{
     width:46px;
     height:46px;
-    border-radius:8px;
-    flex-shrink:0;
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:13px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    color:var(--text);
+    font-size:18px;
+    text-decoration:none;
+    cursor:pointer;
+    transition:.25s ease;
+}
+.icon:hover{
+    transform:translateY(-4px);
+    color:var(--blurple-dim);
+    border-color:var(--blurple);
+    box-shadow:0 0 16px rgba(88,101,242,.35);
 }
 
-.spotify-info {
-    min-width:0;
-    flex:1;
+.wrap{
+    position:relative;
+    z-index:1;
+    max-width:760px;
+    margin:0 auto;
+    padding:56px 24px 100px;
 }
 
-.spotify-info .sp-title {
+.section-head{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    margin-bottom:18px;
+}
+
+.section-title{
+    font-family:'Space Grotesk',sans-serif;
     font-size:13px;
-    font-weight:bold;
-    color:#1DB954;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    color:var(--text-faint);
+}
+
+.section-link{
+    font-size:13px;
+    color:var(--blurple-dim);
+    text-decoration:none;
     display:flex;
     align-items:center;
     gap:6px;
 }
+.section-link:hover{color:white;}
 
-.spotify-info .sp-song {
-    margin-top:3px;
-    font-size:13px;
-    color:white;
-    white-space:nowrap;
+.feature-card{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:22px;
     overflow:hidden;
-    text-overflow:ellipsis;
-}
-
-.spotify-info .sp-artist {
-    margin-top:2px;
-    font-size:12px;
-    color:#888;
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis;
-}
-
-.sp-bars {
-    display:flex;
-    align-items:flex-end;
-    gap:2px;
-    height:14px;
-    flex-shrink:0;
-}
-
-.sp-bars span {
-    width:3px;
-    background:#1DB954;
-    border-radius:1px;
-    animation:sp-bounce 1s ease-in-out infinite;
-}
-
-.sp-bars span:nth-child(1){height:40%;animation-delay:0s;}
-.sp-bars span:nth-child(2){height:100%;animation-delay:.2s;}
-.sp-bars span:nth-child(3){height:60%;animation-delay:.4s;}
-
-@keyframes sp-bounce {
-    0%,100% { height:30%; }
-    50% { height:100%; }
-}
-
-.sp-seek-row {
-    display:flex;
-    align-items:center;
-    gap:8px;
-}
-
-.sp-seek-time {
-    font-size:11px;
-    color:#888;
-    min-width:32px;
-}
-
-.sp-seek-time.end {
-    text-align:right;
-}
-
-.sp-seek-track {
-    position:relative;
-    flex:1;
-    height:5px;
-    background:#232323;
-    border-radius:99px;
-    overflow:hidden;
-}
-
-.sp-seek-fill {
-    position:absolute;
-    top:0;
-    left:0;
-    height:100%;
-    width:0%;
-    background:#1DB954;
-    border-radius:99px;
-}
-
-.notification {
-    position:fixed;
-    bottom:30px;
-    left:50%;
-    transform:translateX(-50%);
-    background:#5865F2;
-    padding:12px 25px;
-    border-radius:12px;
-    opacity:0;
-    pointer-events:none;
     transition:.3s ease;
 }
-
-.notification.show {
-    opacity:1;
-    bottom:50px;
+.feature-card:hover{
+    border-color:var(--blurple);
+    box-shadow:0 0 30px rgba(88,101,242,.25);
 }
 
-.lanyard-reminder {
-    position:fixed;
-    top:30px;
-    left:50%;
-    transform:translateX(-50%);
-    background:#0c0c0c;
-    border:1px solid #232323;
-    color:#a1a1a1;
-    padding:12px 22px;
-    border-radius:12px;
-    font-size:14px;
+.feature-top{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:20px 24px;
+    border-bottom:1px solid var(--line);
+}
+
+.feature-top-left{
     display:flex;
     align-items:center;
     gap:10px;
-    opacity:0;
-    filter:blur(8px);
-    pointer-events:none;
-    transition:opacity 1s ease, filter 1s ease;
-    z-index:999;
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:600;
+    font-size:15px;
+}
+.feature-top-left i{color:var(--blurple);}
+
+.feature-live{
+    display:flex;
+    align-items:center;
+    gap:7px;
+    font-size:12px;
+    color:var(--text-dim);
 }
 
-.lanyard-reminder i { color:#5865F2; }
+.status-dot{
+    width:9px;
+    height:9px;
+    border-radius:50%;
+    background:var(--green);
+    flex-shrink:0;
+    animation:pulse 1.8s ease-in-out infinite;
+}
+.status-dot[data-status="online"]{background:var(--green);}
+.status-dot[data-status="idle"]{background:var(--idle);}
+.status-dot[data-status="dnd"]{background:var(--dnd);}
+.status-dot[data-status="offline"]{background:var(--offline);animation:none;}
 
-.lanyard-reminder.show {
-    opacity:1;
-    filter:blur(0px);
+.status-dot.vr{
+    width:15px;height:15px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    animation:none;
+}
+.status-dot.vr i{font-size:9px;color:#000;}
+
+.feature-body{
+    padding:26px 24px;
+}
+
+.user-row{
+    display:flex;
+    align-items:center;
+    gap:16px;
+}
+
+.avatar-wrap{position:relative;width:60px;height:60px;flex-shrink:0;}
+.avatar-wrap img.avatar{width:60px;height:60px;border-radius:50%;display:block;}
+.avatar-decoration{position:absolute;top:-6px;left:-6px;width:72px;height:72px;pointer-events:none;}
+
+.user-info h3{font-family:'Space Grotesk',sans-serif;font-size:19px;font-weight:600;}
+.user-info p{margin-top:4px;color:var(--text-dim);font-size:13.5px;}
+
+.badges{margin-top:14px;display:flex;flex-wrap:wrap;gap:8px;}
+.badges.hidden{display:none;}
+.badge{
+    width:26px;height:26px;border-radius:8px;
+    background:#101219;border:1px solid var(--line);
+    display:flex;align-items:center;justify-content:center;
+    font-size:12px;color:var(--blurple-dim);
+}
+
+.bio{
+    margin-top:20px;
+    color:#c7c9d4;
+    font-size:14px;
+    line-height:1.65;
+}
+
+.tags{
+    margin-top:18px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+}
+
+.tag{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    background:#101219;
+    border:1px solid var(--line);
+    border-radius:999px;
+    padding:7px 13px;
+    font-size:12.5px;
+    color:#d3d5de;
+    transition:.25s ease;
+}
+.tag i{color:var(--blurple);font-size:12px;}
+.tag:hover{border-color:var(--blurple);color:var(--blurple-dim);}
+.tag.learning{opacity:.7;border-style:dashed;}
+.tag .learning-badge{font-size:9.5px;color:#e6a13c;text-transform:uppercase;margin-left:1px;}
+
+.spotify-card{
+    margin-top:20px;
+    padding-top:20px;
+    border-top:1px solid var(--line);
+    display:none;
+    flex-direction:column;
+    gap:10px;
+}
+.spotify-card.show{display:flex;}
+
+.spotify-top{display:flex;align-items:center;gap:12px;}
+.spotify-top img{width:44px;height:44px;border-radius:8px;flex-shrink:0;}
+.spotify-info{min-width:0;flex:1;}
+.spotify-info .sp-title{font-size:11.5px;font-weight:700;color:var(--spotify);display:flex;align-items:center;gap:6px;letter-spacing:.5px;}
+.spotify-info .sp-song{margin-top:3px;font-size:13.5px;color:white;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.spotify-info .sp-artist{margin-top:2px;font-size:12px;color:var(--text-dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+
+.sp-bars{display:flex;align-items:flex-end;gap:2px;height:14px;flex-shrink:0;}
+.sp-bars span{width:3px;background:var(--spotify);border-radius:1px;animation:sp-bounce 1s ease-in-out infinite;}
+.sp-bars span:nth-child(1){height:40%;animation-delay:0s;}
+.sp-bars span:nth-child(2){height:100%;animation-delay:.2s;}
+.sp-bars span:nth-child(3){height:60%;animation-delay:.4s;}
+@keyframes sp-bounce{0%,100%{height:30%;}50%{height:100%;}}
+
+.sp-seek-row{display:flex;align-items:center;gap:8px;}
+.sp-seek-time{font-size:11px;color:var(--text-faint);min-width:32px;}
+.sp-seek-time.end{text-align:right;}
+.sp-seek-track{position:relative;flex:1;height:5px;background:var(--line);border-radius:99px;overflow:hidden;}
+.sp-seek-fill{position:absolute;top:0;left:0;height:100%;width:0%;background:var(--spotify);border-radius:99px;}
+
+.feature-foot{
+    display:flex;
+    align-items:center;
+    gap:22px;
+    padding:16px 24px;
+    border-top:1px solid var(--line);
+    color:var(--text-dim);
+    font-size:13px;
+    flex-wrap:wrap;
+}
+.feature-foot span{display:flex;align-items:center;gap:6px;}
+
+.projects-link-card{
+    margin-top:20px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:18px 22px;
+    text-decoration:none;
+    color:var(--text);
+    transition:.25s ease;
+}
+.projects-link-card:hover{border-color:var(--blurple);transform:translateY(-3px);box-shadow:0 0 20px rgba(88,101,242,.25);}
+.plc-left{display:flex;align-items:center;gap:14px;}
+.plc-left i.big{font-size:20px;color:var(--blurple);}
+.plc-title{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:15px;}
+.plc-sub{margin-top:2px;font-size:12.5px;color:var(--text-dim);}
+
+/* notification + reminder */
+.notification{
+    position:fixed;bottom:30px;left:50%;transform:translateX(-50%);
+    background:var(--blurple);padding:12px 25px;border-radius:12px;
+    opacity:0;pointer-events:none;transition:.3s ease;z-index:100;
+    font-size:13.5px;font-weight:600;
+}
+.notification.show{opacity:1;bottom:50px;}
+
+.lanyard-reminder{
+    position:fixed;top:80px;left:50%;transform:translateX(-50%);
+    background:var(--panel);border:1px solid var(--line);color:var(--text-dim);
+    padding:11px 20px;border-radius:12px;font-size:13px;
+    display:flex;align-items:center;gap:9px;
+    opacity:0;filter:blur(8px);pointer-events:none;
+    transition:opacity 1s ease, filter 1s ease;z-index:99;
+}
+.lanyard-reminder i{color:var(--blurple);}
+.lanyard-reminder.show{opacity:1;filter:blur(0px);}
+
+footer{
+    position:relative;z-index:1;
+    text-align:center;
+    padding:30px 24px 50px;
+    color:var(--text-faint);
+    font-size:12.5px;
+}
+
+@media (max-width:560px){
+    nav{padding:16px 20px;}
+    .nav-status span.label-text{display:none;}
+    h1{font-size:38px;}
+    .stats{gap:0;}
+    .stat{padding:0 16px;}
+    .stat .num{font-size:21px;}
+    .user-row{flex-wrap:wrap;}
 }
 </style>
 </head>
 
 <body>
 
-<div class="container">
+<nav>
+<div class="brand">
+<div class="brand-mark">I</div>
+Izzy
+</div>
+<div class="nav-right">
+<div class="nav-status">
+<span class="dot" id="nav-dot"></span>
+<span class="label-text" id="nav-status-text">Online</span>
+</div>
+<a class="nav-cta" href="projects.html">Servers</a>
+</div>
+</nav>
 
-<span class="tag">izzy.js</span>
+<div class="hero">
 
-<h1>Hey, I'm <span class="blurple">Izzy!</span></h1>
+<span class="eyebrow">izzy.js</span>
 
-<p class="main-text">Management - Programming - Moderation - VR</p>
+<h1>Hey, I'm <span class="blurple">Izzy</span></h1>
 
-<p class="bio">
-Heyo! I'm Izzy, I specialize in management, programming, and systems work. I love running communities and tinkering with the systems that keep servers running smoothly.
-</p>
+<p class="subtitle">Management <span class="sep">/</span> Programming <span class="sep">/</span> Moderation <span class="sep">/</span> VR</p>
 
-<a href="projects.html" style="display:inline-block;margin-top:18px;color:#5865F2;text-decoration:none;font-size:15px;font-weight:bold;">
-View my Projects <i class="fa-solid fa-arrow-right"></i>
-</a>
+<div class="stats">
+<div class="stat">
+<div class="num blurple-num">2</div>
+<div class="label">Servers</div>
+</div>
+<div class="stat">
+<div class="num green-num" id="stat-status">--</div>
+<div class="label">Status</div>
+</div>
+<div class="stat">
+<div class="num gold-num">3</div>
+<div class="label">Languages</div>
+</div>
+</div>
 
 <div class="icons">
 <div class="icon" onclick="copyDiscord()" title="Copy Discord">
@@ -503,42 +542,53 @@ View my Projects <i class="fa-solid fa-arrow-right"></i>
 </a>
 </div>
 
-<div class="section-label">Languages & Systems</div>
-
-<div class="skills">
-<div class="skill-chip"><i class="fa-brands fa-python"></i> Python</div>
-<div class="skill-chip"><i class="fa-brands fa-js"></i> JavaScript</div>
-<div class="skill-chip"><i class="fa-brands fa-html5"></i> HTML</div>
-<div class="skill-chip learning"><i class="fa-solid fa-code"></i> C++ <span class="learning-badge">Learning</span></div>
-<div class="skill-chip"><i class="fa-brands fa-discord"></i> Backend Discord Systems</div>
 </div>
 
-<div class="discord-card">
+<div class="wrap">
 
-<div class="discord-header">
-<div class="discord-header-left">
+<div class="section-head">
+<span class="section-title">Live Status</span>
+</div>
+
+<div class="feature-card">
+
+<div class="feature-top">
+<div class="feature-top-left">
 <i class="fa-brands fa-discord"></i>
-<span>Live Discord</span>
+<span>Discord Presence</span>
 </div>
-</div>
-
-<div class="discord-status">
-<div class="status-dot" id="status-dot" data-status="online"></div>
+<div class="feature-live">
+<span class="status-dot" id="status-dot" data-status="online"></span>
 <span id="status">Online</span>
 </div>
+</div>
 
-<div class="discord-user">
+<div class="feature-body">
+
+<div class="user-row">
 <div class="avatar-wrap">
 <img id="discord-avatar" class="avatar" src="https://cdn.discordapp.com/embed/avatars/0.png" loading="eager" decoding="async">
 <img id="avatar-decoration" class="avatar-decoration" style="display:none;">
 </div>
-<div>
+<div class="user-info">
 <h3 id="discord-name">Loading...</h3>
 <p id="discord-activity">Loading activity...</p>
 </div>
 </div>
 
 <div class="badges hidden" id="badges"></div>
+
+<p class="bio">
+Heyo! I'm Izzy — I specialize in management, programming, and systems work. I love running communities and tinkering with the systems that keep servers running smoothly.
+</p>
+
+<div class="tags">
+<div class="tag"><i class="fa-brands fa-python"></i> Python</div>
+<div class="tag"><i class="fa-brands fa-js"></i> JavaScript</div>
+<div class="tag"><i class="fa-brands fa-html5"></i> HTML</div>
+<div class="tag learning"><i class="fa-solid fa-code"></i> C++ <span class="learning-badge">Learning</span></div>
+<div class="tag"><i class="fa-brands fa-discord"></i> Backend Discord Systems</div>
+</div>
 
 <div class="spotify-card" id="spotify-card">
 <div class="spotify-top">
@@ -562,6 +612,21 @@ View my Projects <i class="fa-solid fa-arrow-right"></i>
 </div>
 
 </div>
+
+<a class="projects-link-card" href="projects.html">
+<div class="plc-left">
+<i class="fa-solid fa-server big"></i>
+<div>
+<div class="plc-title">View my Projects</div>
+<div class="plc-sub">Servers I help manage and moderate</div>
+</div>
+</div>
+<i class="fa-solid fa-arrow-right"></i>
+</a>
+
+</div>
+
+<footer>izzy.js — built with care</footer>
 
 <div class="notification" id="notification">Discord username copied!</div>
 
@@ -724,6 +789,10 @@ function renderPresence(user){
     const rawStatus = user.discord_status || "offline";
     dot.setAttribute("data-status", rawStatus);
     document.getElementById("status").innerText = statusLabels[rawStatus] || rawStatus;
+    document.getElementById("stat-status").innerText = statusLabels[rawStatus] || rawStatus;
+
+    document.getElementById("nav-dot").setAttribute("data-status", rawStatus);
+    document.getElementById("nav-status-text").innerText = statusLabels[rawStatus] || rawStatus;
 
     const onVR = user.activities && user.activities.some(a =>
         a.name && a.name.toLowerCase().includes("vr")
@@ -736,6 +805,7 @@ function renderPresence(user){
         dot.classList.add("vr");
         dot.innerHTML = '<i class="fa-solid fa-vr-cardboard"></i>';
         document.getElementById("status").innerText = "Online on VR";
+        document.getElementById("stat-status").innerText = "VR";
     }
 }
 
@@ -743,6 +813,7 @@ function setOffline(){
     document.getElementById("discord-activity").innerText = "Offline";
     document.getElementById("status-dot").setAttribute("data-status","offline");
     document.getElementById("status").innerText = "Offline";
+    document.getElementById("stat-status").innerText = "Offline";
     stopSeekTimer();
     document.getElementById("spotify-card").classList.remove("show");
 }
