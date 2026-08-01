@@ -6,7 +6,7 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="Izzy | Programmer & Developer">
 <meta property="og:description" content="Hey! I'm Izzy, a programmer focused on Roblox development, community management, moderation, and UI design.">
-<meta property="og:url" content="https://izzydizzyy.github.io/izzygg/"> <meta property="og:image" content="_Izzy_ (1).png"> <meta name="theme-color" content="#141414"> <meta name="twitter:card" content="summary_large_image">
+<meta property="og:url" content="https://izzydizzyy.github.io/izzygg/"> <meta property="og:image" content="_Izzy_ (1).png"> <meta name="theme-color" content="#092730"> <meta name="twitter:card" content="summary_large_image">
 <title>Izzy!</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -22,9 +22,22 @@ font-family:Inter,sans-serif;
 }
 
 body{
-background:#090909;
+background:#092730;
 color:white;
 overflow-x:hidden;
+position:relative;
+min-height:100vh;
+}
+
+
+body::after{
+content:"";
+position:fixed;
+inset:0;
+background:url('rain.gif') center/cover no-repeat;
+opacity:.32;
+z-index:-2;
+pointer-events:none;
 }
 
 body::before{
@@ -32,9 +45,11 @@ content:"";
 position:fixed;
 inset:0;
 background:
-radial-gradient(circle at 20% 30%,rgba(80,80,80,.12),transparent 30%),
-radial-gradient(circle at 80% 70%,rgba(255,255,255,.04),transparent 25%);
+linear-gradient(180deg, rgba(9,39,48,.55), rgba(9,39,48,.85) 60%, #092730 100%),
+radial-gradient(circle at 20% 20%,rgba(40,63,71,.55),transparent 35%),
+radial-gradient(circle at 80% 75%,rgba(40,63,71,.4),transparent 30%);
 pointer-events:none;
+z-index:-1;
 }
 
 .background{
@@ -48,8 +63,9 @@ z-index:-1;
 .ball{
 position:absolute;
 border-radius:50%;
-background:#202020;
-filter:blur(1px);
+background:#16414d;
+filter:blur(2px);
+opacity:.5;
 animation:float 14s infinite ease-in-out;
 }
 
@@ -90,6 +106,8 @@ width:1100px;
 max-width:95%;
 margin:auto;
 padding:80px 0;
+position:relative;
+z-index:1;
 }
 
 .hero{
@@ -101,16 +119,36 @@ flex-wrap:wrap;
 }
 
 .card{
-background:#141414;
-border:1px solid #242424;
+background:rgba(20,42,49,.72);
+backdrop-filter:blur(10px);
+-webkit-backdrop-filter:blur(10px);
+border:1px solid #283f47;
 border-radius:20px;
 padding:35px;
-transition:.25s ease-out;
+transition:transform .12s ease-out, box-shadow .3s ease-out, border-color .3s;
 transform-style:preserve-3d;
+will-change:transform;
+position:relative;
+}
+
+.card::before{
+content:"";
+position:absolute;
+inset:0;
+border-radius:20px;
+background:linear-gradient(135deg, rgba(255,255,255,.06), transparent 40%);
+opacity:0;
+transition:opacity .3s;
+pointer-events:none;
 }
 
 .card:hover{
-box-shadow:0 20px 40px rgba(0,0,0,.5);
+box-shadow:0 25px 50px rgba(0,0,0,.55), 0 0 30px rgba(40,63,71,.35);
+border-color:#3d5c66;
+}
+
+.card:hover::before{
+opacity:1;
 }
 
 .left{
@@ -121,12 +159,16 @@ min-width:300px;
 .left h1{
 font-size:58px;
 font-weight:800;
+background:linear-gradient(180deg,#ffffff,#9fc2cc);
+-webkit-background-clip:text;
+background-clip:text;
+color:transparent;
 }
 
 .left h2{
 margin-top:10px;
 font-weight:500;
-color:#999;
+color:#9fb8c0;
 }
 
 .tags{
@@ -138,21 +180,21 @@ margin:30px 0;
 
 .tag{
 padding:10px 18px;
-background:#202020;
+background:#16323a;
 border-radius:12px;
-border:1px solid #303030;
+border:1px solid #283f47;
 transition:.2s;
 font-size:14px;
-color:#e0e0e0;
+color:#e0e8ea;
 }
 
 .tag:hover{
-background:#2d2d2d;
+background:#1f4750;
 transform:translateY(-4px);
 }
 
 .bio{
-color:#bdbdbd;
+color:#c3d3d7;
 line-height:1.7;
 font-size:15px;
 }
@@ -184,7 +226,8 @@ width:100%;
 height:100%;
 border-radius:50%;
 object-fit:cover;
-background:#202020;
+background:#16323a;
+box-shadow:0 0 0 3px #092730, 0 0 20px rgba(40,63,71,.6);
 }
 
 .status-dot {
@@ -194,14 +237,14 @@ right:2px;
 width:20px;
 height:20px;
 border-radius:50%;
-border:3px solid #141414;
-background:#747f8d;
+border:3px solid #142a2f;
+background:#5c7178;
 }
 
 .status-dot.online { background:#3ba55d; }
 .status-dot.idle { background:#faa81a; }
 .status-dot.dnd { background:#ed4245; }
-.status-dot.offline { background:#747f8d; }
+.status-dot.offline { background:#5c7178; }
 
 .discord-user-info h2 {
 font-size:24px;
@@ -210,7 +253,7 @@ line-height:1.2;
 }
 
 .discord-user-info p {
-color:#888;
+color:#8ba7ae;
 font-size:14px;
 margin-top:4px;
 }
@@ -223,11 +266,11 @@ margin-top:15px;
 
 .status-box{
 padding:12px 15px;
-background:#1d1d1d;
+background:#0e2429;
 border-radius:12px;
-border:1px solid #2f2f2f;
+border:1px solid #23404a;
 font-size:14px;
-color:#aaa;
+color:#9fb8c0;
 }
 
 .status-box span {
@@ -240,7 +283,7 @@ margin-top:2px;
 .status-box .sub-detail {
 font-weight:400;
 font-size:12px;
-color:#888;
+color:#8ba7ae;
 margin-top:2px;
 }
 
@@ -264,7 +307,7 @@ margin-bottom:5px;
 }
 
 .stat-label {
-color:#888;
+color:#8ba7ae;
 font-size:14px;
 text-transform:uppercase;
 letter-spacing:1px;
@@ -278,6 +321,7 @@ margin-top:70px;
 font-size:28px;
 margin-bottom:25px;
 font-weight:700;
+color:#eef6f8;
 }
 
 .projects-grid {
@@ -304,7 +348,7 @@ align-items:center;
 }
 
 .project p{
-color:#bcbcbc;
+color:#bcccd1;
 font-size:14px;
 line-height:1.6;
 margin-bottom:20px;
@@ -313,12 +357,12 @@ margin-bottom:20px;
 .project-role {
 display:inline-block;
 padding:4px 10px;
-background:#252525;
+background:#16323a;
 border-radius:6px;
 font-size:12px;
-color:#ccc;
+color:#cfe3e8;
 margin-top:10px;
-border:1px solid #333;
+border:1px solid #283f47;
 }
 
 .gallery {
@@ -337,9 +381,9 @@ width:100%;
 height:180px;
 border-radius:12px;
 overflow:hidden;
-background:#1c1c1c;
+background:#0e2429;
 margin-bottom:15px;
-border:1px solid #2a2a2a;
+border:1px solid #23404a;
 }
 
 .gallery-img-container img {
@@ -360,7 +404,7 @@ font-weight:600;
 
 .gallery-info p {
 font-size:13px;
-color:#777;
+color:#8ba7ae;
 margin-top:4px;
 }
 
@@ -377,14 +421,20 @@ transition:color .2s;
 }
 
 .btn-link:hover {
-color:#aaa;
+color:#9fc2cc;
 }
 
 footer{
 padding:50px 0 20px 0;
 text-align:center;
-color:#666;
+color:#7c96a0;
 font-size:14px;
+position:relative;
+z-index:1;
+}
+
+footer a{
+color:#cfe3e8;
 }
 
 </style>
@@ -519,7 +569,7 @@ Custom Status
 
 <div class="gallery-card card">
 <div class="gallery-img-container">
-<img src="PixelCSLogoRender.png" alt="Fractured VR Render" onerror="this.src='https://via.placeholder.com/600x400/181818/888888?text=PixelCSLogoRender.png'">
+<img src="PixelCSLogoRender.png" alt="Fractured VR Render" onerror="this.src='https://via.placeholder.com/600x400/0e2429/8ba7ae?text=PixelCSLogoRender.png'">
 </div>
 <div class="gallery-info">
 <h4>Fractured VR Render</h4>
@@ -529,7 +579,7 @@ Custom Status
 
 <div class="gallery-card card">
 <div class="gallery-img-container">
-<img src="funnydontblink.png" alt="Dont Blink VR Screenshot" onerror="this.src='https://via.placeholder.com/600x400/181818/888888?text=funnydontblink.png'">
+<img src="funnydontblink.png" alt="Dont Blink VR Screenshot" onerror="this.src='https://via.placeholder.com/600x400/0e2429/8ba7ae?text=funnydontblink.png'">
 </div>
 <div class="gallery-info">
 <h4>Dont Blink VR</h4>
@@ -539,7 +589,7 @@ Custom Status
 
 <div class="gallery-card card">
 <div class="gallery-img-container">
-<img src="dontblink.png" alt="Dont Blink VR Media" onerror="this.src='https://via.placeholder.com/600x400/181818/888888?text=dontblink.png'">
+<img src="dontblink.png" alt="Dont Blink VR Media" onerror="this.src='https://via.placeholder.com/600x400/0e2429/8ba7ae?text=dontblink.png'">
 </div>
 <div class="gallery-info">
 <h4>Dont Blink VR</h4>
@@ -569,14 +619,15 @@ const rect = card.getBoundingClientRect();
 const x = e.clientX - rect.left;
 const y = e.clientY - rect.top;
 
-const rx = ((y - rect.height / 2) / 12);
-const ry = ((rect.width / 2 - x) / 12);
+const rx = ((y - rect.height / 2) / 18);
+const ry = ((rect.width / 2 - x) / 18);
 
 card.style.transform = 
 `perspective(1200px)
 rotateX(${rx}deg)
 rotateY(${ry}deg)
-translateY(-5px)`;
+translateY(-8px)
+scale(1.015)`;
 
 });
 
